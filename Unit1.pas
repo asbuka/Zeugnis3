@@ -4,9 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc,
+  Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc, Soap.XSBuiltIns,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frxClass, frxPreview, Vcl.StdCtrls,
-  frxDesgn, frxRich, frxChBox, frxDBSet;
+  frxDesgn, frxRich, frxChBox, frxDBSet, frxCtrls, frxDesgnCtrls, Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
@@ -18,6 +18,7 @@ type
     frxDesigner1: TfrxDesigner;
     frxZeignisInhalt: TfrxUserDataSet;
     frxFach: TfrxUserDataSet;
+    ColorBox1: TColorBox;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreviewClick(Sender: TObject);
@@ -33,6 +34,7 @@ type
     procedure frxFachFirst(Sender: TObject);
     procedure frxFachCheckEOF(Sender: TObject; var Eof: Boolean);
     procedure frxFachGetValue(const VarName: string; var Value: Variant);
+    procedure ColorBox1Change(Sender: TObject);
   private
     { Private-Deklarationen }
     WPath: String;
@@ -91,6 +93,11 @@ begin
   frxReport1.ShowReport;
 end;
 
+procedure TForm1.ColorBox1Change(Sender: TObject);
+begin
+  ShowMessage(IntToStr(ColorBox1.Selected));
+end;
+
 procedure TForm1.DesignBClick(Sender: TObject);
 begin
   frxReport1.DesignReport;
@@ -102,7 +109,7 @@ begin
   XMLSchueler.Encoding := 'UTF-8';
 
   WPath := ExtractFilePath(Application.ExeName);
-  frxReport1.LoadFromFile(WPath + 'ErsteReport.fr3');
+  frxReport1.LoadFromFile(WPath + 'Reports\ErsteReport.fr3');
 //  frxReport1.PreviewOptions.Buttons := frxReport1.PreviewOptions.Buttons + [pbInplaceEdit ,pbSelection, pbCopy, pbPaste];
 //  frxReport1.PreviewOptions.AllowPreviewEdit := True;
 end;
@@ -111,7 +118,7 @@ procedure TForm1.frxFachCheckEOF(Sender: TObject; var Eof: Boolean);
 begin
   Eof := True;
   if Assigned(FachNode) then
-    Eof := frxFach.RecNo >= FachNode.ChildNodes.Count;
+    Eof := (frxFach.RecNo >= FachNode.ChildNodes.Count);
 end;
 
 procedure TForm1.frxFachFirst(Sender: TObject);
@@ -126,28 +133,43 @@ begin
   Value := null;
   if Assigned(PunktNode) then
   begin
-    if VarName = 'Bemerkung' then
-      Value := PunktNode.NodeName = 'Bemerkung';
     if VarName = 'SortNr' then
       if Assigned(PunktNode.ChildNodes.FindNode('SortNr')) then
         Value := PunktNode.ChildValues['SortNr'];
+    if VarName = 'LabelText1' then
+    begin
+      Value := '';
+      if Assigned(PunktNode.ChildNodes.FindNode('LabelText1')) then
+        Value := VarToStrDef(PunktNode.ChildValues['LabelText1'], '');
+    end;
+    if VarName = 'LabelText2' then
+    begin
+      Value := '';
+      if Assigned(PunktNode.ChildNodes.FindNode('LabelText2')) then
+        Value := VarToStrDef(PunktNode.ChildValues['LabelText2'], '');
+    end;
     if VarName = 'Wert' then
       if Assigned(PunktNode.ChildNodes.FindNode('Wert')) then
         Value := PunktNode.ChildValues['Wert'];
-    if VarName = 'Seitenumbruch' then
-      if Assigned(PunktNode.ChildNodes.FindNode('Seitenumbruch')) then
-        Value := s2b(PunktNode.ChildValues['Seitenumbruch']);
     if VarName = 'Text' then
+    begin
+      Value := '';
       if Assigned(PunktNode.ChildNodes.FindNode('Text')) then
-        Value := PunktNode.ChildValues['Text'];
+        Value := VarToStrDef(PunktNode.ChildValues['Text'], '');
+    end;
     if VarName = 'Farbe' then
       if Assigned(PunktNode.ChildNodes.FindNode('Farbe')) then
         Value := PunktNode.ChildValues['Farbe'];
-    if VarName = 'Font' then
+    if VarName = 'Font.Style' then
+    begin
+      Value := '';
       if Assigned(PunktNode.ChildNodes.FindNode('Font')) then
-        if FachNode.HasAttribute('FontStyle')then
-          Value := FachNode.Attributes['FontStyle'];
-//          Value := PunktNode.ChildValues['Wert'];
+        if PunktNode.ChildNodes.FindNode('Font').HasAttribute('Style')then
+          Value := PunktNode.ChildNodes.FindNode('Font').Attributes['Style'];
+    end;
+    if VarName = 'Schriftgrad' then
+      if Assigned(PunktNode.ChildNodes.FindNode('Schriftgrad')) then
+        Value := PunktNode.ChildValues['Schriftgrad'];
   end;
 end;
 
@@ -201,15 +223,30 @@ begin
     if VarName = 'K_Halbjahr' then
       if Assigned(PersonalDatenNode.ChildNodes.FindNode('Halbjahr')) then
         Value := PersonalDatenNode.ChildValues['Halbjahr'];
+    if VarName = 'K_Konferenz' then
+      if Assigned(PersonalDatenNode.ChildNodes.FindNode('Konferenz')) then
+        Value := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Konferenz']);
+    if VarName = 'K_Ausstellungsdatum' then
+      if Assigned(PersonalDatenNode.ChildNodes.FindNode('Ausstellungsdatum')) then
+        Value := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Ausstellungsdatum']);
     if VarName = 'K_Versaeumnisse' then
-      if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse')) then
-        Value := PersonalDatenNode.ChildValues['Versaeumnisse'];
+      if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse2')) then
+        Value := PersonalDatenNode.ChildValues['Versaeumnisse2'];
+    if VarName = 'K_Foerderschwerpunkt' then
+      if Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt')) then
+        Value := PersonalDatenNode.ChildValues['Foerderschwerpunkt']
+      else
+        Value := '';
   end;
   if Assigned(FachNode) then
   begin
     if VarName = 'Fachname' then
-      if FachNode.HasAttribute('Name')then
+    begin
+      if FachNode.HasAttribute('Bezeichnung') then
+        Value := FachNode.Attributes['Bezeichnung']
+      else if FachNode.HasAttribute('Name')then
         Value := FachNode.Attributes['Name'];
+    end;
     if VarName = 'Seitenumbruch' then
       if FachNode.HasAttribute('Seitenumbruch')then
         Value := s2b(FachNode.Attributes['Seitenumbruch']);
