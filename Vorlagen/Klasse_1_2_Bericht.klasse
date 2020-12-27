@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zeugnis Klasse="1_2" Bericht="T" GesprGrdl="T" Version="6">
+	<ZeugnisInhalt>
+		<Fach Name="Kompetenzen" Seitenumbruch="F" Torten="F" Kompetenz="T">
+			<FachBezeichnung>Bericht zur überfachlichen Kompetenzen laut Ministerium für BWK</FachBezeichnung>
+			<TextFach>
+				<RTFText>Den Unterricht verfolgtest du TORTE01 aufmerksam. Du beteiligtest dich TORTE02 aktiv. Die Arbeitsanweisungen konntest du TORTE03 umsetzen. Du zeigtest dich TORTE04 anstrengungsbereit. TORTE05 konntest du über einen längeren Zeitraum konzentriert arbeiten. Du hieltest TORTE06 ein angemessenes Arbeitstempo ein. Deine Arbeiten führtest du TORTE07 sorgfältig und gewissenhaft aus. Deine Arbeitsmaterialien konntest du TORTE08 organisieren. Die Hausaufgaben erledigtest du TORTE09 zuverlässig. Du zeigtest dich TORTE10 freundlich und ausgeglichen. Du verhieltest dich TORTE11 hilfsbereit. Die Vereinbarungen und Regeln konntest du TORTE12 einhalten. Du arbeitetest TORTE13 erfolgreich mit anderen Kindern zusammen.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>generell</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>sehr sicher</VALUE01>
+						<VALUE02>überwiegend sicher</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>manchmal</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE04">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>vielfach</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE05">
+						<VALUE01>Problemlos</VALUE01>
+						<VALUE02>Überwiegend</VALUE02>
+						<VALUE03>Häufig</VALUE03>
+						<VALUE04>Selten</VALUE04>
+						<VALUE05>Nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE06">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>generell</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE07">
+						<VALUE01>außerordentlich</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>selten</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE08">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>im Allgemeinen</VALUE02>
+						<VALUE03>zeitweise</VALUE03>
+						<VALUE04>oft nicht</VALUE04>
+						<VALUE05>niemals</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE09">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE10">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>vielmals</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE11">
+						<VALUE01>sehr</VALUE01>
+						<VALUE02>in der Regel</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>nicht immer</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE12">
+						<VALUE01>problemlos</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>nicht immer</VALUE04>
+						<VALUE05>gar nicht</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE13">
+						<VALUE01>sehr</VALUE01>
+						<VALUE02>oft</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>manchmal</VALUE04>
+						<VALUE05>niemals</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Deutsch" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Deutsch</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du beteiligtest dich TORTE01 mit sachgerechten Beiträgen an Gesprächen. In den Linien schriebst du TORTE02 formgerecht. Du schriebst TORTE03 fehlerfrei ab. Lautgetreue Wörter konntest du TORTE04 richtig schreiben. Du konntest Wortgrenzen TORTE05 einhalten. Kurze Texte konntest du TORTE06 aufschreiben. Wörter und kurze Sätze konntest du TORTE07 lesen.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>rege und aktiv</VALUE01>
+						<VALUE02>zuverlässig</VALUE02>
+						<VALUE03>regelmäßig</VALUE03>
+						<VALUE04>ab und zu</VALUE04>
+						<VALUE05>zu selten</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>zuweilen</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>nie</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>zumeist</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>oft nicht</VALUE04>
+						<VALUE05>selten</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE04">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE05">
+						<VALUE01>sehr sicher</VALUE01>
+						<VALUE02>überwiegend sicher</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>manchmal</VALUE04>
+						<VALUE05>nicht</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE06">
+						<VALUE01>selbstständig</VALUE01>
+						<VALUE02>zumeist selbstständig</VALUE02>
+						<VALUE03>zum Teil selbstständig</VALUE03>
+						<VALUE04>mit Hilfe</VALUE04>
+						<VALUE05>mit viel Hilfe</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE07">
+						<VALUE01>mühelos</VALUE01>
+						<VALUE02>meist mühelos</VALUE02>
+						<VALUE03>recht sicher</VALUE03>
+						<VALUE04>nicht sicher</VALUE04>
+						<VALUE05>noch nicht</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Mathematik" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Mathematik</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du beteiligtest dich TORTE01 mit sachbezogenen Beiträgen an unseren Gesprächen. Aufgaben konntest du TORTE02 verstehen. Du kennst die Zahlen bis 20 und orientiertest dich in diesem Zahlenraum TORTE03. Im Zahlenraum bis 20 addiertest du TORTE04. Du subtrahiertest TORTE05 im Zahlenraum bis 20. Zu Geschichten und Bildern fandest du TORTE06 Rechenaufgaben. Geldbeträge konntest du legen und damit TORTE07 rechnen. Geometrische Formen (Kreis, Rechteck, Quadrat, Dreieck) konntest du TORTE08 benennen.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>rege und aktiv</VALUE01>
+						<VALUE02>zuverlässig</VALUE02>
+						<VALUE03>regelmäßig</VALUE03>
+						<VALUE04>manchmal</VALUE04>
+						<VALUE05>zu selten</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>umfassend</VALUE01>
+						<VALUE02>im Allgemeinen</VALUE02>
+						<VALUE03>zuweilen</VALUE03>
+						<VALUE04>mit Hilfe</VALUE04>
+						<VALUE05>mit viel Hilfe</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>sehr sicher</VALUE01>
+						<VALUE02>überwiegend sicher</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>nicht sicher</VALUE04>
+						<VALUE05>nicht</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE04">
+						<VALUE01>fehlerfrei</VALUE01>
+						<VALUE02>meist fehlerfrei</VALUE02>
+						<VALUE03>teilweise richtig</VALUE03>
+						<VALUE04>manchmal richtig</VALUE04>
+						<VALUE05>nicht richtig</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE05">
+						<VALUE01>problemlos</VALUE01>
+						<VALUE02>meistens richtig</VALUE02>
+						<VALUE03>teilweise richtig</VALUE03>
+						<VALUE04>manchmal richtig</VALUE04>
+						<VALUE05>nicht richtig</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE06">
+						<VALUE01>selbstständig</VALUE01>
+						<VALUE02>fast immer selbstständig</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>mit Unterstützung</VALUE04>
+						<VALUE05>mit viel Unterstützung</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE07">
+						<VALUE01>sehr sicher</VALUE01>
+						<VALUE02>überwiegend sicher</VALUE02>
+						<VALUE03>zuweilen</VALUE03>
+						<VALUE04>nicht sicher</VALUE04>
+						<VALUE05>nicht</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+					<NUMMER NAME="TORTE08">
+						<VALUE01>mühelos</VALUE01>
+						<VALUE02>meistens richtig</VALUE02>
+						<VALUE03>teilweise richtig</VALUE03>
+						<VALUE04>manchmal richtig</VALUE04>
+						<VALUE05>nicht richtig</VALUE05>
+						<VALUE06>─────</VALUE06>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sachunterricht" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Sachunterricht</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest TORTE01 an den behandelten Themen. An unseren Gesprächen beteiligtest du dich TORTE02. Du konntest Gelerntes TORTE03 behalten und wiedergeben. Die behandelten Themen bearbeitetest du TORTE04 sachgerecht.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>großes Interesse</VALUE01>
+						<VALUE02>Interesse</VALUE02>
+						<VALUE03>zuweilen Interesse</VALUE03>
+						<VALUE04>ab und zu Interesse</VALUE04>
+						<VALUE05>zu wenig Interesse</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>rege</VALUE01>
+						<VALUE02>oftmals</VALUE02>
+						<VALUE03>wechselnd</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>selten</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>verlässlich</VALUE01>
+						<VALUE02>größtenteils verlässlich</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>oberflächlich</VALUE04>
+						<VALUE05>kaum</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE04">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>zuweilen</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Religion" Seitenumbruch="T" Torten="T" Aktiv="T">
+			<FachBezeichnung>Religion</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest dich TORTE01 aufgeschlossen gegenüber den sozialen und religiösen Themen. An unseren Gesprächen nahmst du TORTE02 teil. Du konntest die Inhalte TORTE03 gestalterisch umsetzen.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>rege</VALUE01>
+						<VALUE02>oftmals</VALUE02>
+						<VALUE03>wechselnd</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>selten</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>verlässlich</VALUE01>
+						<VALUE02>größtenteils verlässlich</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>oberflächlich</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Philosophie" Seitenumbruch="T" Torten="T" Aktiv="F">
+			<FachBezeichnung>Philosophie</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest dich TORTE01 aufgeschlossen gegenüber den sozialen Themen. An unseren Gesprächen nahmst du TORTE02 teil. Du konntest die Inhalte TORTE03 gestalterisch umsetzen.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>rege</VALUE01>
+						<VALUE02>oftmals</VALUE02>
+						<VALUE03>wechselnd</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>selten</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>verlässlich</VALUE01>
+						<VALUE02>größtenteils verlässlich</VALUE02>
+						<VALUE03>teilweise</VALUE03>
+						<VALUE04>oberflächlich</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Musik" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Musik</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest TORTE01 Freude am gemeinsamen Singen. Bei Spielliedern und Tänzen beteiligtest du dich TORTE02. Einfache Rhythmen konntest du TORTE03 erfassen und wiedergeben. Du konntest Höreindrücke TORTE04 beschreiben.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>bisweilen</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>sehr engagiert</VALUE01>
+						<VALUE02>überwiegend engagiert</VALUE02>
+						<VALUE03>oftmals engagiert</VALUE03>
+						<VALUE04>zaghaft</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>selbstständig</VALUE01>
+						<VALUE02>überwiegend sicher</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>selten</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE04">
+						<VALUE01>differenziert</VALUE01>
+						<VALUE02>genau</VALUE02>
+						<VALUE03>recht genau</VALUE03>
+						<VALUE04>oft nicht genau</VALUE04>
+						<VALUE05>noch ungenau</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Kunst" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Kunst, Textillehre, Technik</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest TORTE01 Kreativität und Einfallsreichtum. Du arbeitetest TORTE02 sorgfältig und mit Ausdauer. Mit Materialien gingst du TORTE03 sachgerecht um.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>überwiegend</VALUE02>
+						<VALUE03>zum Teil</VALUE03>
+						<VALUE04>selten</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>immer</VALUE01>
+						<VALUE02>oft</VALUE02>
+						<VALUE03>häufig</VALUE03>
+						<VALUE04>kaum</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sport" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Sport</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du zeigtest TORTE01 Freude an den Bewegung und Anstrengungsbereitschaft. An und mit Geräten konntest du TORTE02 turnen. Du verhieltest dich TORTE03 fair.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER>
+					<NUMMER NAME="TORTE01">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>meistens</VALUE02>
+						<VALUE03>bisweilen</VALUE03>
+						<VALUE04>gelegentlich</VALUE04>
+						<VALUE05>nie</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE02">
+						<VALUE01>immer sicher</VALUE01>
+						<VALUE02>sicher</VALUE02>
+						<VALUE03>recht sicher</VALUE03>
+						<VALUE04>noch nicht sicher genug</VALUE04>
+						<VALUE05>unsicher</VALUE05>
+					</NUMMER>
+					<NUMMER NAME="TORTE03">
+						<VALUE01>stets</VALUE01>
+						<VALUE02>größtenteils</VALUE02>
+						<VALUE03>oft</VALUE03>
+						<VALUE04>nicht immer</VALUE04>
+						<VALUE05>nicht</VALUE05>
+					</NUMMER>
+				</PLATZHALTER>
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Englisch" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Englisch</FachBezeichnung>
+			<TextFach>
+				<RTFText>Du nahmst mit Freude am Englischunterricht teil.</RTFText>
+				<Schriftgrad>12</Schriftgrad>
+				<PLATZHALTER />
+			</TextFach>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Bemerkungen" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Zusätzliche Bemerkungen</FachBezeichnung>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+				<Schriftgrad>12</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+	</ZeugnisInhalt>
+	<ZeugnisInhaltGGL>
+		<Fach Name="Kompetenzen" Seitenumbruch="F" Torten="T" Kompetenz="T">
+			<FachBezeichnung>Überfachliche Kompetenzen</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du verfolgtest den Unterricht aufmerksam.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du beteiligtest dich aktiv am Unterricht.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest die Arbeitsanweisungen umsetzen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du zeigtest dich anstrengungsbereit.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du konntest über einen längeren Zeitraum konzentriert arbeiten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>6</SortNr>
+				<Text>Du hieltest ein altersangemessenes Arbeitstempo ein.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>7</SortNr>
+				<Text>Du führtest deine Arbeiten sorgfältig und gewissenhaft aus.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>8</SortNr>
+				<Text>Du konntest deine Arbeitsmaterialien organisieren.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>9</SortNr>
+				<Text>Du erledigtest die Hausaufgaben zuverlässig.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>10</SortNr>
+				<Text>Du zeigtest dich freundlich und ausgeglichen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>11</SortNr>
+				<Text>Du verhieltest dich hilfsbereit.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>12</SortNr>
+				<Text>Du konntest die Vereinbarungen und Regeln einhalten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>13</SortNr>
+				<Text>Du arbeitetest erfolgreich mit anderen Kindern zusammen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Deutsch" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Deutsch</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du beteiligtest dich mit sachgerechten Beiträgen an Gesprächen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du schriebst formgerecht in den Linien.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du schriebst fehlerfrei ab.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du konntest lautgetreue Wörter richtig schreiben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du konntest Wortgrenzen einhalten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>6</SortNr>
+				<Text>Du konntest kurze Texte aufschreiben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>7</SortNr>
+				<Text>Du konntest Wörter und kurze Sätze lesen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Mathematik" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Mathematik</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du beteiligtest dich mit sachbezogenen Beiträgen an unseren Gesprächen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest Aufgaben verstehen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du kennst die Zahlen bis 20 und orientiertest dich in diesem Zahlenraum.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du addiertest im Zahlenraum bis 20.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du subtrahiertest im Zahlenraum bis 20.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>6</SortNr>
+				<Text>Du fandest Rechenaufgaben zu Geschichten und Bildern.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>7</SortNr>
+				<Text>Du konntest Geldbeträge legen und damit rechnen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>8</SortNr>
+				<Text>Du konntest geometrische Formen (Kreis, Rechteck, Quadrat, Dreieck) benennen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sachunterricht" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Sachunterricht</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Interesse an den behandelten Themen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du beteiligtest dich an unseren Gesprächen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest Gelerntes behalten und wiedergeben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du bearbeitetest die behandelten Themen sachgerecht.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Religion" Seitenumbruch="T" Torten="T" Aktiv="T">
+			<FachBezeichnung>Religion</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest dich aufgeschlossen gegenüber den sozialen und religiösen Inhalten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du nahmst aktiv an unseren Gesprächen teil.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest die Inhalte gestalterisch umsetzen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Philosophie" Seitenumbruch="T" Torten="T" Aktiv="F">
+			<FachBezeichnung>Philosophie</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest dich aufgeschlossen gegenüber den sozialen Inhalten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du nahmst aktiv an unseren Gesprächen teil.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du setztest die Inhalte gestalterisch um.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Musik" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Musik</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Freude am gemeinsamen Singen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du beteiligtest dich bei Spielliedern und Tänzen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest einfache Rhythmen erfassen und wiedergeben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du konntest Höreindrücke beschreiben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Kunst" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Kunst, Textillehre, Technik</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Kreativität und Einfallsreichtum.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du arbeitetest sorgfältig und mit Ausdauer.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du gingst mit Materialien sachgerecht um.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sport" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Sport</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Freude an der Bewegung und Anstrengungsbereitschaft.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest an und mit Geräten turnen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du verhieltest dich fair.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Englisch" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Englisch</FachBezeichnung>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du nahmst mit Freude am Englischunterricht teil.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="" />
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Bemerkungen" Seitenumbruch="F" Torten="F">
+			<FachBezeichnung>Zusätzliche Bemerkungen</FachBezeichnung>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text />
+			</Bemerkung>
+		</Fach>
+	</ZeugnisInhaltGGL>
+</Zeugnis>

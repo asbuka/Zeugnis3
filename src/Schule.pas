@@ -1,19 +1,20 @@
-unit Schule;
+﻿unit Schule;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, Winapi.ShlObj, Winapi.WinInet, Vcl.Forms,
-  System.IniFiles, System.Win.Registry, System.SysUtils,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls;
+  System.IniFiles, System.Win.Registry, System.SysUtils, Vcl.ExtActns, Xml.XMLIntf,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
+  System.Variants, System.IOUtils;
 
 const
   TO_ADVANCEDTYPOGRAPHY         = $0001;
 
   RTFBeispiel = '{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}\viewkind4\uc1\pard\f0\fs16 Beispiel RTF text\par}';
-  GSHoisbuettel = 'Zeugnis Grundschule Hoisb�ttel';
+  GSHoisbuettel = 'Zeugnis Grundschule Hoisbüttel';
   RegGSHoisbuettel = 'Software\GSHoisbuettel\Zeugnis\';
-  SchueleVersion = 3;
+  SchueleVersion = 7;
 
   MemoSGDef = 8;
 //  ScrollWidth = 16;
@@ -21,22 +22,27 @@ const
   YAbstand = 10;
   RightPunktenAbstand = 30;
   RightTortenAbstand = RightPunktenAbstand + 3;
-
+  A3_Fach = 1.414;  // 297/210
   LF = #13+#10;
-  E_OPEN_PRINTER = 'Fehler beim �ffnen des Druckers' + LF + '%s';
+  E_OPEN_PRINTER = 'Fehler beim Öffnen des Druckers' + LF + '%s';
 
 type
   TZeugnistModus = (fpLoad, fpNormal, fpEdit);
 
   function DeleteTrailingBlanks(const Str: String): String;
   function GetFileVersion(Datei: string): string;
+  function CompareFileVersion(const FileVersion1, FileVersion2: String): Integer;
   function s2b(const S: string): Boolean;
   function b2s(const Value: Boolean): string;
   function CheckLexicon(const Input: string): string;
   function GetUniqueComponentName(AOwner: TComponent; const CompName: string): string;
-  function GetTempFile(const Extension: string): string;
+  function GetTempFile(const Extension: string = ''): string;
   function IsRTF(sText: string): Boolean;
   function RTF2PlainText(sRTF: String): string;
+  function RTFOhneEffekt(sRTF: String; sFachName: string = ''): string;
+  function TrimRTF(sRTF: String): string;
+  function SetRTFFontSize(sRTF: String; FontSis: Integer): string;
+  function FindAtributeNode(Input: IXMLNode; const AttributesName, AttributesValue: WideString): IXMLNode;
   function HomeVerzeichnis(Form: TForm): string;
   function InstallExt(Extension, ExtDescription, FileDescription,
     OpenWith, ParamString: string; IconIndex: Integer): Boolean;
@@ -44,11 +50,22 @@ type
   procedure Save_ViewerSketchListWidth;
   procedure Ini2Reg(Form: TForm);
   function IsConnectedToInternet: Boolean;
+  procedure RichEditAlignBlocksatz(RichEdit: TCustomRichEdit);
+  function GetEffektText(aRichEdit: TRichEdit; aPos, aMask: Cardinal): string; overload;
+  function GetEffektText(aRichEdit: TRichEdit; aPos, aMask: Cardinal; var WStart, WLen: Cardinal): Boolean; overload;
+  function NurZiffern(const asStrg: string ): string;
 
   function GetWinErrorMsgStr(dwErrorCode: DWord): string;
   function GetPrinterDevMode(strPrinter: string; var pDevmode: pDevMode): Boolean;
-  function GetPrinterDevModeGlobal(strPrinter: string; var hGlbMem: hGlobal): Boolean;
-  function OpenPrinter(const strPrinter: string; var hPrt: THandle): Boolean;
+  function GetPrinterDevModeGlobal(PrinterName: string; var hGlbMem: hGlobal): Boolean;
+  function OpenPrinter(const PrinterName: string; var hPrt: THandle): Boolean;
+  procedure EnumerateSpoolJobs(PrinterName: String; JobList: TStrings);
+  function GetPapierFormat: SmallInt;
+  procedure SetPapierFormat(const Value: SmallInt);
+  function GetDefaultPrinter: string;
+  procedure SetDefaultPrinter1(NewDefPrinter: string);
+  procedure SetDefaultPrinter2(PrinterName: string);
+  procedure Delay(dwMilliseconds: Longint);
 
 var
   ApplicationPath: string;
@@ -59,6 +76,8 @@ var
   GS_Hoisbuettel_FontEdit: TFont;
 
 implementation
+
+{$WARN SYMBOL_PLATFORM OFF}
 
 uses
   Dialogs, RichEdit, WinApi.WinSpool, Vcl.Printers;
@@ -82,7 +101,7 @@ var
  aStream: TStringStream;
 begin
    aRE := TRichEdit.Create(nil);
-   //RTF Bug: Beim Laden des Texttes �ber
+   //RTF Bug: Beim Laden des Texttes über
    //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
    // Deswegen hier dieser Wokarround
    sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
@@ -95,6 +114,130 @@ begin
       aRE.PlainText := False;
       aRE.Lines.LoadFromStream(aStream);
       aRE.PlainText := True;
+      aStream.Position := soFromBeginning;
+      aStream.Size := 0;
+      aRE.Lines.SaveToStream(aStream);
+      Result := aStream.DataString;
+   finally
+     aRE.Free;
+     aStream.Free;
+   end;
+end;
+
+function RTFOhneEffekt(sRTF: String; sFachName: string): string;
+var
+ aRE: TRichEdit;
+ aStream: TStringStream;
+ Idx: Integer;
+ WStart, WLan: Cardinal;
+begin
+   aRE := TRichEdit.Create(nil);
+   //RTF Bug: Beim Laden des Texttes über
+   //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
+   // Deswegen hier dieser Wokarround
+   sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+   aStream := TStringStream.Create(sRTF);
+   try
+      aRE.Visible := False;
+      aRE.ParentWindow := Application.Handle;
+      if aRE.ParentWindow = 0 then
+        aRE.ParentWindow := GetDesktopWindow;
+      aRE.PlainText := False;
+      aRE.Lines.LoadFromStream(aStream);
+
+      Idx := 1;
+      while Idx < aRE.GetTextLen do
+      begin
+        if GetEffektText(aRE, Idx, CFM_STRIKEOUT, WStart, Wlan) then
+        begin
+          aRE.SelStart := WStart;
+          aRE.SelLength := Wlan;
+          aRE.SelText := '';
+          Idx := WStart + 1;
+        end else
+          Inc(idx);
+      end;
+
+      aRE.SelectAll;
+      aRE.SelAttributes.Color := clWindowText;
+      aRE.SelAttributes.Style := [];
+      if sFachName <> '' then
+        aRE.Lines.Insert(0, sFachName);
+      aStream.Position := soFromBeginning;
+      aStream.Size := 0;
+      aRE.Lines.SaveToStream(aStream);
+      Result := aStream.DataString;
+   finally
+     aRE.Free;
+     aStream.Free;
+   end;
+end;
+
+function TrimRTF(sRTF: String): string;
+var
+ aRE: TRichEdit;
+ aStream: TStringStream;
+begin
+  aRE := TRichEdit.Create(nil);
+  //RTF Bug: Beim Laden des Texttes über
+  //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
+  // Deswegen hier dieser Wokarround
+  sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+  aStream := TStringStream.Create(sRTF);
+  try
+    aRE.Visible := False;
+    aRE.ParentWindow := Application.Handle;
+    if aRE.ParentWindow = 0 then
+      aRE.ParentWindow := GetDesktopWindow;
+    aRE.PlainText := False;
+    aRE.Lines.LoadFromStream(aStream);
+
+    if aRE.GetTextLen > 0 then
+    begin
+      aRE.HideSelection := False;
+      repeat
+        aRE.SelStart := aRE.GetTextLen;
+        aRE.SelLength := -1;
+        if (aRE.GetTextLen > 0) and CharInSet(aRE.SelText[1], [' ', #$D]) then
+        begin
+          aRE.SelText := '';
+          aRE.SelStart := aRE.GetTextLen;
+          aRE.SelLength := -1;
+        end;
+      until (aRE.GetTextLen <= 0) or not CharInSet(aRE.SelText[1], [' ', #$D]);
+
+      aStream.Position := soFromBeginning;
+      aStream.Size := 0;
+      aRE.Lines.SaveToStream(aStream);
+      Result := aStream.DataString;
+    end else
+      Result := sRTF;
+  finally
+    aRE.Free;
+    aStream.Free;
+  end;
+end;
+
+function SetRTFFontSize(sRTF: String; FontSis: Integer): string;
+var
+ aRE: TRichEdit;
+ aStream: TStringStream;
+begin
+   aRE := TRichEdit.Create(nil);
+   //RTF Bug: Beim Laden des Texttes über
+   //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
+   // Deswegen hier dieser Wokarround
+   sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+   aStream := TStringStream.Create(sRTF);
+   try
+      aRE.Visible := False;
+      aRE.ParentWindow := Application.Handle;
+      if aRE.ParentWindow = 0 then
+        aRE.ParentWindow := GetDesktopWindow;
+      aRE.PlainText := False;
+      aRE.Lines.LoadFromStream(aStream);
+      aRE.SelectAll;
+      aRE.SelAttributes.Size := Round(FontSis * A3_Fach);
       aStream.Position := soFromBeginning;
       aStream.Size := 0;
       aRE.Lines.SaveToStream(aStream);
@@ -123,7 +266,7 @@ begin
 
   if dwInfoSize = 0 then
   begin
-    Result := 'No version specification';
+    Result := 'Keine Versionsangabe';
     Exit;
   end;
 
@@ -134,11 +277,46 @@ begin
   with rVerValue^ do
   begin
     Result := IntTostr(dwFileVersionMS shr 16);
-    Result := Result + '.' + IntTostr(dwFileVersionMS and $FFFF);
-    Result := Result + '.' + IntTostr(dwFileVersionLS shr 16);
-    Result := Result + '.' + IntTostr(dwFileVersionLS and $FFFF);
+    Result := Result + '.' + IntToStr(dwFileVersionMS and $FFFF);
+    Result := Result + '.' + IntToStr(dwFileVersionLS shr 16);
+    Result := Result + '.' + IntToStr(dwFileVersionLS and $FFFF);
   end;
   FreeMem(lpVerInfo, dwInfoSize);
+end;
+
+function CompareFileVersion(const FileVersion1, FileVersion2: String): Integer;
+var
+  Items1: TStrings;
+  Items2: TStrings;
+  i: Integer;
+  e1: Integer;
+  e2: Integer;
+begin
+//  Result := 0;
+  Items1 := TStringList.Create;
+  Items2 := TStringList.Create;
+  try
+    Items1.Delimiter := '.';
+    Items1.DelimitedText := FileVersion1;
+    Items2.Delimiter := '.';
+    Items2.DelimitedText := FileVersion2;
+    if Items1.Count <> Items2.Count then
+      raise Exception.Create('Inkompatible Versionen: Anzahl der Punkte ist unterschiedlich!');
+    Result := 0;
+    for i := 0 to Items1.Count - 1 do
+    begin
+      e1 := StrToIntDef(Items1[i], -1);
+      e2 := StrToIntDef(Items2[i], -1);
+      if e2 > e1 then
+        Result := 1
+      else if e2 < e1 then
+        Result := -1;
+      if Result <> 0 then Exit;
+    end;
+  finally
+    Items1.Free;
+    Items2.Free;
+  end;
 end;
 
 function s2b(const S: string): Boolean;
@@ -186,20 +364,34 @@ begin
 end;
 
 function GetTempFile(const Extension: string): string;
-var
-  Buffer: array[0..MAX_PATH] of Char;
 begin
-  repeat
-    GetTempPath(SizeOf(Buffer) - 1, Buffer);
-    GetTempFileName(Buffer, '~', 0, Buffer);
-    Result := ChangeFileExt(Buffer, Extension);
-  until not FileExists(Result);
+  Result := TPath.GetTempFileName;
+  if Extension <> '' then
+    ChangeFileExt(Result, Extension);
 end;
 
 function IsRTF(sText: string): Boolean;
 begin
   sText := Trim(sText);
   Result := Copy(sText, 1, 5) = '{\rtf';
+end;
+
+function FindAtributeNode(Input: IXMLNode; const AttributesName, AttributesValue: WideString): IXMLNode;
+var
+  Idx: Integer;
+begin
+  Result := nil;
+  if Assigned(Input) then
+  begin
+    if Input.HasChildNodes then
+      for Idx := 0 to Input.ChildNodes.Count - 1 do
+        if Input.ChildNodes[Idx].HasAttribute(AttributesName) then
+           if AnsiSameText(VarToStr(Input.ChildNodes[Idx].Attributes[AttributesName]), AttributesValue) then
+           begin
+             Result := Input.ChildNodes[Idx];
+             Break;
+           end;
+  end;
 end;
 
 function HomeVerzeichnis(Form: TForm): string;
@@ -386,7 +578,7 @@ begin
    hPrt        := 0    ;
    Result      := FALSE;
    pDevMode    := NIL  ;
-   if(Not OpenPrinter(strPrinter, hPrt) ) then
+   if not OpenPrinter(strPrinter, hPrt) then
    begin
       MessageDlg(Format(E_OPEN_PRINTER, [GetWinErrorMsgStr(GetLastError)]), mtError, [mbOk] ,0);
       Exit;
@@ -407,7 +599,7 @@ begin
    end;
 end;
 
-function GetPrinterDevModeGlobal(strPrinter: string; var hGlbMem: hGlobal): Boolean;
+function GetPrinterDevModeGlobal(PrinterName: string; var hGlbMem: hGlobal): Boolean;
 var
   hPrt        : THandle ;
   lnDocPropRes: LongInt ;
@@ -419,7 +611,7 @@ begin
    hGlbMem      := 0       ;
    aDevMode     := NIL     ;
 
-   if(Not OpenPrinter(strPrinter, hPrt) ) then
+   if not OpenPrinter(PrinterName, hPrt) then
    begin
       MessageDlg(Format(E_OPEN_PRINTER, [GetWinErrorMsgStr(GetLastError)]), mtError, [mbOk] ,0);
       Exit;
@@ -451,16 +643,289 @@ begin
    end;
 end;
 
-function OpenPrinter(const strPrinter: string; var hPrt: THandle): Boolean;
+procedure RichEditAlignBlocksatz(RichEdit: TCustomRichEdit);
+var
+  Paragraph: TParaFormat2;
+begin
+  if RichEdit is TCustomRichEdit then
+  begin
+    ZeroMemory(@Paragraph, SizeOf(TParaFormat2));
+    Paragraph.cbSize := SizeOf(TParaFormat2);
+    Paragraph.dwMask := PFM_ALIGNMENT;
+    Paragraph.wAlignment := PFA_JUSTIFY;
+    SendMessage(TCustomRichEdit(RichEdit).Handle, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
+    SendMessage(TCustomRichEdit(RichEdit).Handle, EM_SETPARAFORMAT, 0, Integer(@Paragraph));
+  end;
+end;
+
+function GetEffektText(aRichEdit: TRichEdit; aPos, aMask: Cardinal): string;
+var
+  Idx: Integer;
+  CharFormat: TCharFormat2;
+  SelStart: Integer;
+begin
+  Result := '';
+  if Assigned(aRichEdit) then
+  begin
+    CharFormat.cbSize := SizeOf(TCharFormat);
+    CharFormat.dwMask := aMask; // CFM_STRIKEOUT; CFM_UNDERLINE
+
+    aRichEdit.SelStart := aPos;
+    SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+
+    if not ((CharFormat.dwEffects and aMask) = 0) then
+    begin
+      {* Find Beginning of Effekt Text *}
+      Idx := aPos;
+      while (Idx > 0) do
+      begin
+        aRichEdit.SelStart := Idx;
+        if aRichEdit.Text[Idx] = #10 then
+          Break;
+        SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+        if (CharFormat.dwEffects and aMask) = 0 then
+          Break;
+        Dec(Idx);
+      end;
+
+      {* Find Length of Effekt Text *}
+      SelStart := Idx;
+      Idx := 1;
+      while SelStart + Idx <= aRichEdit.GetTextLen do
+      begin
+        aRichEdit.SelStart := SelStart + Idx;
+        if aRichEdit.Text[SelStart + Idx] = #10 then
+          Break;
+        SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+        if (CharFormat.dwEffects and aMask) = 0 then
+          Break;
+        Inc( Idx );
+      end;
+
+      aRichEdit.SelStart := SelStart;
+      aRichEdit.SelLength := Idx - 1;
+      Result := Trim(aRichEdit.SelText);
+    end;
+  end;
+end;
+
+function GetEffektText(aRichEdit: TRichEdit; aPos, aMask: Cardinal; var WStart, WLen: Cardinal): Boolean;
+var
+  Idx: Integer;
+  CharFormat: TCharFormat2;
+  SelStart: Integer;
+begin
+  Result := False;
+  if Assigned(aRichEdit) then
+  begin
+    CharFormat.cbSize := SizeOf(TCharFormat);
+    CharFormat.dwMask := aMask; // CFM_STRIKEOUT; CFM_UNDERLINE
+
+    aRichEdit.SelStart := aPos;
+    SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+
+    if not ((CharFormat.dwEffects and aMask) = 0) then
+    begin
+      Result := True;
+      {* Find Beginning of Effekt Text *}
+      Idx := aPos;
+      while (Idx > 0) do
+      begin
+        aRichEdit.SelStart := Idx;
+        if aRichEdit.Text[Idx] = #10 then
+          Break;
+        SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+        if (CharFormat.dwEffects and aMask) = 0 then
+          Break;
+        Dec(Idx);
+      end;
+
+      {* Find Length of Effekt Text *}
+      SelStart := Idx;
+      Idx := 1;
+      while SelStart + Idx <= aRichEdit.GetTextLen do
+      begin
+        aRichEdit.SelStart := SelStart + Idx;
+        if aRichEdit.Text[SelStart + Idx] = #10 then
+          Break;
+        SendMessage(aRichEdit.Handle, EM_GETCHARFORMAT, SCF_SELECTION, LPARAM(@CharFormat));
+        if (CharFormat.dwEffects and aMask) = 0 then
+          Break;
+        Inc(Idx);
+      end;
+
+      WStart := SelStart;
+      WLen := Idx - 1;
+    end
+  end;
+end;
+
+function NurZiffern(const asStrg: string ): string;
+var
+  I : Integer;
+  Z : Char;
+begin
+  Result := '';
+  for I:= 1 to Length(asStrg) do begin
+    Z := asStrg[I];
+    if (Ord(Z) >=48 ) and (Ord(Z) <= 57) then
+      Result := Result + z;
+  end;
+end;
+
+function OpenPrinter(const PrinterName: string; var hPrt: THandle): Boolean;
 var
   aPrtDef: TPrinterDefaults;
 begin
    ZeroMemory(@aPrtDef, SizeOf(TPrinterDefaults));
    aPrtDef.DesiredAccess := PRINTER_ACCESS_USE;
-   // Drucker �ffnen
+   // Drucker öffnen
 
-   Result := WinApi.WinSpool.OpenPrinter(pChar(strPrinter), hPrt, @aPrtDef);
+   Result := WinApi.WinSpool.OpenPrinter(pChar(PrinterName), hPrt, @aPrtDef);
    Result := ( (Result) AND (hPrt <> 0) );
+end;
+
+function GetDefaultPrinter: string;
+var
+  ResStr: array[0..255] of Char;
+begin
+  GetProfileString('Windows', 'device', '', ResStr, 255);
+  Result := StrPas(ResStr);
+end;
+
+procedure SetDefaultPrinter1(NewDefPrinter: string);
+var
+  ResStr: array[0..255] of Char;
+begin
+  StrPCopy(ResStr, NewdefPrinter);
+  WriteProfileString('windows', 'device', ResStr);
+  StrCopy(ResStr, 'windows');
+  SendMessage(HWND_BROADCAST, WM_WININICHANGE, 0, Longint(@ResStr));
+end;
+
+procedure SetDefaultPrinter2(PrinterName: string);
+var
+  I: Integer;
+  Device: PChar;
+  Driver: PChar;
+  Port: PChar;
+  HdeviceMode: THandle;
+  aPrinter: TPrinter;
+begin
+  Printer.PrinterIndex := -1;
+  GetMem(Device, 255);
+  GetMem(Driver, 255);
+  GetMem(Port, 255);
+  aPrinter := TPrinter.Create;
+  try
+    for I := 0 to Printer.Printers.Count - 1 do
+    begin
+      if Printer.Printers.ValueFromIndex[I] = PrinterName then
+      begin
+        aprinter.PrinterIndex := i;
+        aPrinter.getprinter(device, driver, port, HdeviceMode);
+        StrCat(Device, ',');
+        StrCat(Device, Driver);
+        StrCat(Device, Port);
+        WriteProfileString('windows', 'device', Device);
+        StrCopy(Device, 'windows');
+        SendMessage(HWND_BROADCAST, WM_WININICHANGE, 0, Longint(@Device));
+      end;
+    end;
+  finally
+    aPrinter.Free;
+  end;
+  FreeMem(Device, 255);
+  FreeMem(Driver, 255);
+  FreeMem(Port, 255);
+end;
+
+function GetPapierFormat: SmallInt;
+var
+  pDMode: PDevMode;
+begin
+//  Result := 0;
+
+  GetPrinterDevMode(Printer.Printers.Strings[Printer.PrinterIndex], pDMode);
+//      pDMode^.dmOrientation := DMORIENT_LANDSCAPE;
+//      pDMode^.dmDuplex := dmd
+  Result := pDMode^.dmPaperSize;
+end;
+
+procedure SetPapierFormat(const Value: SmallInt);
+var
+  Device: array[0..cchDeviceName-1] of Char;
+  Driver: array[0..(MAX_PATH-1)] of Char;
+  Port: array[0..32] of Char;
+  hDMode: THandle;
+  pDMode: PDevMode;
+//  sDev: array[0..32] of Char;
+begin
+  Printer.GetPrinter(Device, Driver, Port, hDMode);
+  if hDMode <> 0 then
+  begin
+    pDMode := GlobalLock(hDMode);
+    if pDMode <> nil then
+    begin
+//      pDMode^.dmOrientation := DMORIENT_LANDSCAPE;
+////      // landscape
+      pDMode^.dmPaperSize := Value;
+////      // (см. win32.hlp DEVMODE)
+
+      GlobalUnlock(hDMode);
+    end;
+  end;
+end;
+
+procedure EnumerateSpoolJobs(PrinterName: String; JobList: TStrings);
+var
+   aJobs : Array[0..99] of JOB_INFO_1;
+   cbBuf : DWORD;
+   pcbNeeded : DWORD;
+   pcReturned : DWORD;
+   hPrinter : THandle;
+   i : Integer;
+begin
+   if not Assigned(JobList) then
+     Exit;
+
+   if not OpenPrinter(PrinterName, hPrinter) then
+   begin
+      MessageDlg(Format(E_OPEN_PRINTER, [GetWinErrorMsgStr(GetLastError)]), mtError, [mbOk] ,0);
+      Exit;
+   end;
+
+   JobList.Clear;
+
+   try
+     cBBuf := 1000;
+     Winapi.WinSpool.EnumJobs(hPrinter, 0, 1000, 1, @aJobs, cbBuf, pcbNeeded, pcReturned);
+     if pcReturned <= 0 then
+       pcReturned := 1;
+     for i := 0 to pcReturned - 1 do
+     begin
+        JobList.AddObject(Format('%d - %s %s %s %d' ,
+            [aJobs[i].JobId,
+             StrPas(aJobs[i].pDocument),
+             StrPas(aJobs[i].pStatus),
+             StrPas(aJobs[i].pUserName),
+             aJobs[i].TotalPages]), @aJobs[i]);
+     end;
+   finally
+     Winapi.WinSpool.ClosePrinter(hPrinter);
+   end;
+end;
+
+procedure Delay(dwMilliseconds: Longint);
+var
+  iStart, iStop: Cardinal;
+begin
+  iStart := GetTickCount;
+  repeat
+    iStop := GetTickCount;
+    Application.ProcessMessages;
+    Sleep(1); // addition from Christian Scheffler to avoid high CPU last
+  until (iStop - iStart) >= dwMilliseconds;
 end;
 
 initialization

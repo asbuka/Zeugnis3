@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zeugnis Klasse="3_1" Version="7" Bericht="F" GesprGrdl="F">
+	<ZeugnisInhalt>
+		<Fach Name="Kompetenzen" Bezeichnung="Bericht zur überfachlichen Kompetenzen laut Ministerium für BWK" Seitenumbruch="F" Torten="F">
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs18\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Deutsch" Bezeichnung="Deutsch" Seitenumbruch="F" Torten="T">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Kompetenzbereich „Sprechen und Zuhören"</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du beteiligtest dich mit sachgerechten Beiträgen an Gesprächen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest wichtige Informationen aus Hörtexten entnehmen und verarbeiten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Kompetenzbereich „Lesen“</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du konntest altersgemäße Texte fließend und sinnentnehmend lesen und Aufgaben dazu bearbeiten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>6</SortNr>
+				<Text>Du konntest bekannte Texte flüssig vortragen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>7</SortNr>
+				<Text>Kompetenzbereich „Texte schreiben“</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>8</SortNr>
+				<Text>Du fandest selbstständig eigene Schreibideen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>9</SortNr>
+				<Text>Du schriebst sinnvoll aufgebaute Texte nach unterschiedlichen Vorgaben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>10</SortNr>
+				<Text>Du benutztest abwechslungsreiche Satzanfänge und treffende Ausdrücke.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>11</SortNr>
+				<Text>Kompetenzbereich „Richtig schreiben“</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>12</SortNr>
+				<Text>Du schriebst die geübten Wörter des Grundwortschatzes richtig.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>13</SortNr>
+				<Text>Du konntest Texte fehlerfrei abschreiben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>14</SortNr>
+				<Text>Du wendetest Rechtschreibstrategien an.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>15</SortNr>
+				<Text>Du schriebst flüssig und lesbar.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>16</SortNr>
+				<Text>Kompetenzbereich „Sprache und Sprachgebrauch“</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>17</SortNr>
+				<Text>Du konntest eingeführte Wortarten (Nomen, Verben, Adjektive) eigenständig erkennen und benennen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>18</SortNr>
+				<Text>Du setztest die Satzschlusszeichen richtig.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Mathematik" Bezeichnung="Mathematik" Seitenumbruch="T" Torten="T">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Allgemeine Fähigkeiten</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du zeigtest Interesse und beteiligtest dich mit sachbezogenen Beiträgen an unseren Gesprächen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest Aufgaben verstehen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Zahlenraum bis 1000 und Operationen</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du konntest dich im Zahlenraum bis 1000 orientieren.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>6</SortNr>
+				<Text>Du rechnetest die eingeführten Additions- und Subtraktionsaufgaben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>7</SortNr>
+				<Text>Du beherrschtest die Aufgaben des kleinen Einmaleins und die dazugehörigen Umkehraufgaben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>8</SortNr>
+				<Text>Sachrechnen</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>9</SortNr>
+				<Text>Du konntest aus Sachsituationen mathematische Fragestellungen, Rechnungen und Antworten finden (Texte, Tabellen, Diagramme).</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>10</SortNr>
+				<Text>Du konntest kombinatorische Aufgaben lösen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>11</SortNr>
+				<Text>Geometrie</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle="fsBold"/>
+				<Wert>-10</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>12</SortNr>
+				<Text>Du erkanntest und nutztest den Zusammenhang zwischen Bauplan und Würfeln.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sachunterricht" Bezeichnung="Sachunterricht" Seitenumbruch="F" Torten="F">
+			<FachZusatz>
+				<SortNr>98</SortNr>
+				<LabelText1>So hast du in der Draußenschule und zu den Themen</LabelText1>
+				<Text/>
+				<LabelText2>gearbeitet:</LabelText2>
+			</FachZusatz>
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Interesse und beteiligtest dich mit sachbezogenen Beiträgen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest Gelerntes behalten, wiedergeben und präsentieren.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest Zusammenhänge herstellen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du konntest fachspezifische Arbeitsweisen sachgerecht anwenden.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du verhieltest dich umsichtig und verantwortungsbewusst in der Natur.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Englisch" Bezeichnung="Englisch" Seitenumbruch="F" Torten="F">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du sprachst geübte Wörter richtig aus.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du verstandest einfache Anweisungen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du schriebst einzelne Wörter fehlerfrei ab.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Sport" Bezeichnung="Sport" Seitenumbruch="F" Torten="F">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Einsatzfreude und Anstrengungsbereitschaft.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du gestaltetest Mannschafts- und Ballspiele aktiv mit.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du zeigtest Geschick im Umgang mit Klein- und Großgeräten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du zeigtest Ausdauer und Geschick bei leichtathletischen Übungen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>5</SortNr>
+				<Text>Du verhieltest dich fair.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Musik" Bezeichnung="Musik" Seitenumbruch="T" Torten="T">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Freude am gemeinsamen Singen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest Rhythmen erfassen und wiedergeben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest erarbeitete Noten- und Pausenwerte benennen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du entwickeltest Klangideen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Kunst" Bezeichnung="Kunst, Textillehre, Technik" Seitenumbruch="F" Torten="F">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest Kreativität und Einfallsreichtum.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du beherrschtest künstlerische und handwerkliche Techniken.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du arbeitetest aufgaben- und themenbezogen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du tauschtest dich über künstlerische und handwerkliche Strategien aus.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Religion" Bezeichnung="Religion" Seitenumbruch="F" Torten="F" Aktiv="T">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du zeigtest dich aufgeschlossen gegenüber den sozialen und religiösen Inhalten.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest Ideen, Fragen und eigene Standpunkte in unsere Gespräche einbringen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest die Unterrichtsinhalte schriftlich und gestalterisch umsetzen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du konntest Gelerntes behalten und wiedergeben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Philosophie" Bezeichnung="Philosophie" Seitenumbruch="F" Torten="F" Aktiv="F">
+			<Punkt>
+				<SortNr>1</SortNr>
+				<Text>Du konntest Ideen, Fragen und Vermutungen in das Unterrichtsgespräch einbringen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>2</SortNr>
+				<Text>Du konntest deine Vermutungen und Auffassungen begründen und prüfen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>3</SortNr>
+				<Text>Du konntest Gelerntes behalten und wiedergeben.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Punkt>
+				<SortNr>4</SortNr>
+				<Text>Du konntest die Unterrichtsinhalte schriftlich und gestalterisch umsetzen.</Text>
+				<Farbe>-16777201</Farbe>
+				<Font FontStyle=""/>
+				<Wert>0</Wert>
+			</Punkt>
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+		<Fach Name="Bemerkungen" Bezeichnung="Zusätzliche Bemerkungen" Seitenumbruch="F" Torten="F">
+			<Bemerkung>
+				<SortNr>99</SortNr>
+				<Text>{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Comic Sans MS;}}
+\viewkind4\uc1\pard\f0\fs16\par
+}
+				</Text>
+				<Schriftgrad>8</Schriftgrad>
+			</Bemerkung>
+		</Fach>
+	</ZeugnisInhalt>
+</Zeugnis>
