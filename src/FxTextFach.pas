@@ -568,11 +568,11 @@ begin
       else
         Wert := 0;
       end;
-    end;
-    FachPunkt.ChildValues['Wert'] := Wert;
+      FachPunkt.ChildValues['Wert'] := Wert;
 
-    if Assigned(FOnPunktFachChange) then
-      OnPunktFachChange(Self, PHTortenMenu.Tag, Wert);
+      if Assigned(FOnPunktFachChange) then
+        OnPunktFachChange(Self, PHTortenMenu.Tag, Wert);
+    end;
   end;
 end;
 

@@ -3,6 +3,11 @@ program Zeugnis;
 
 
 uses
+  madExcept,
+  madLinkDisAsm,
+  madListHardware,
+  madListProcesses,
+  madListModules,
   Vcl.Forms,
   Schule in 'src\Schule.pas' {Schule},
   UnitRecentListe in 'src\UnitRecentListe.pas',
