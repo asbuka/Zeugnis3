@@ -252,6 +252,7 @@ object frmErfassung: TfrmErfassung
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        OnClick = rgFachClick
       end
       object rbPhilosophie: TRadioButton
         Left = 9
@@ -267,6 +268,7 @@ object frmErfassung: TfrmErfassung
         Font.Style = []
         ParentFont = False
         TabOrder = 1
+        OnClick = rgFachClick
       end
     end
   end

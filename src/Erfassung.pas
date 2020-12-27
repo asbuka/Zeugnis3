@@ -196,6 +196,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure mitDruckenClick(Sender: TObject);
     procedure chkQuickPreviewClick(Sender: TObject);
+    procedure rgFachClick(Sender: TObject);
   private
     { Private-Deklarationen }
     InXMLToFach: Boolean;
@@ -368,6 +369,18 @@ begin
     if FachNode.HasAttribute('Kompetenz') then
       Result.Kompetenz     := s2b(VarToStr(FachNode.Attributes['Kompetenz']));
 
+    if FachNode.HasAttribute('Aktiv') then
+    begin
+      Result.FFachStatus := fsNoAktiv;
+      if s2b(VarToStr(FachNode.Attributes['Aktiv'])) then
+      begin
+        rbReligion.Checked := AnsiSameText(FID, 'Religion');
+        rbPhilosophie.Checked := AnsiSameText(FID, 'Philosophie');
+        Result.FFachStatus := fsAktiv;
+      end else
+        Result.TabVisible := False;
+    end;
+
     if not NurBemerkung then
     begin
       if Assigned(TextFachNode) then
@@ -461,6 +474,8 @@ begin
     if aPageControl.Pages[Idx] is TFachTabSheet then
       aPageControl.Pages[Idx].Free;
   end;
+
+  pnlReligionPhilosophie.Visible := False;
 end;
 
 procedure TfrmErfassung.DoLoadSchueler;
@@ -662,6 +677,77 @@ begin
   PersonalDatenNode.ChildValues['Versaeumnisse2']       := cmbVersaeumnisse.Items.Strings[cmbVersaeumnisse.ItemIndex];
   if edFoerderschwerpunkt.Visible then
     PersonalDatenNode.ChildValues['Foerderschwerpunkt'] := edFoerderschwerpunkt.Text;
+end;
+
+procedure TfrmErfassung.rgFachClick(Sender: TObject);
+var
+  Idx: Integer;
+  FachPage: TFachTabSheet;
+  SetActivePage: Boolean;
+  ActivePage: TFachTabSheet;
+begin
+  if not InXMLToTabSheet then
+  begin
+    ActivePage := nil;
+    SetActivePage := AnsiSameText(TFachTabSheet(pgZeugnis.ActivePage).FID, 'Religion') or AnsiSameText(TFachTabSheet(pgZeugnis.ActivePage).FID, 'Philosophie');
+    for Idx := 0 to pgZeugnis.PageCount - 1 do
+    begin
+      if pgZeugnis.Pages[Idx] is TFachTabSheet then
+      begin
+        FachPage := pgZeugnis.Pages[Idx] as TFachTabSheet;
+        if FachPage.FFachStatus <> fsNone then
+        begin
+          if AnsiSameText(FachPage.FID, 'Religion') then
+            FachPage.TabVisible := rbReligion.Checked;
+          if AnsiSameText(FachPage.FID, 'Philosophie') then
+            FachPage.TabVisible := rbPhilosophie.Checked;
+
+          if FachPage.TabVisible then
+          begin
+            FachPage.FFachStatus := fsAktiv;
+            ActivePage := FachPage;
+          end else
+            FachPage.FFachStatus := fsNoAktiv;
+        end;
+      end;
+    end;
+
+    if SetActivePage and Assigned(ActivePage) then
+      pgZeugnis.ActivePage := ActivePage;
+
+    if Assigned(ZeugnisInhaltGGLNode) then
+    begin
+      ActivePage := nil;
+      SetActivePage := AnsiSameText(TFachTabSheet(pgZeugnisGGL.ActivePage).FID, 'Religion') or AnsiSameText(TFachTabSheet(pgZeugnisGGL.ActivePage).FID, 'Philosophie');
+
+      for Idx := 0 to pgZeugnisGGL.PageCount - 1 do
+      begin
+        if pgZeugnisGGL.Pages[Idx] is TFachTabSheet then
+        begin
+          FachPage := pgZeugnisGGL.Pages[Idx] as TFachTabSheet;
+          if FachPage.FFachStatus <> fsNone then
+          begin
+            if AnsiSameText(FachPage.FID, 'Religion') then
+              FachPage.TabVisible := rbReligion.Checked;
+            if AnsiSameText(FachPage.FID, 'Philosophie') then
+              FachPage.TabVisible := rbPhilosophie.Checked;
+
+            if FachPage.TabVisible then
+            begin
+              FachPage.FFachStatus := fsAktiv;
+              ActivePage := FachPage;
+            end else
+              FachPage.FFachStatus := fsNoAktiv;
+          end;
+        end;
+      end;
+
+      if SetActivePage and Assigned(ActivePage) then
+        pgZeugnisGGL.ActivePage := ActivePage;
+    end;
+
+    Change := True;
+  end;
 end;
 
 procedure TfrmErfassung.RecentListClick(SchuelerFile: TFileName);
@@ -1357,6 +1443,7 @@ begin
         end;
       end;
     finally
+      pnlReligionPhilosophie.Visible := True;
       pgZeugnis.Visible := True;
     end;
   end;
