@@ -149,13 +149,6 @@ object frmTextFach: TfrmTextFach
         Height = 13
         Caption = 'Label7'
       end
-      object Shape1: TShape
-        Left = 200
-        Top = 47
-        Width = 25
-        Height = 17
-        Shape = stCircle
-      end
     end
   end
   object PHTortenMenu: TPopupMenu

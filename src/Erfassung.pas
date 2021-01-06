@@ -238,7 +238,7 @@ type
     function CreateFachTabSheet(aPageControl: TPageControl; FachNode, FachGGLNode: IXMLNode): TFachTabSheet;
     procedure SetChange(const Value: Boolean);
     procedure DoSaveSchueler;
-    procedure LoadDocumnetInfo(Root: IXMLNode);
+    procedure LoadDocumnetInfo(aRoot: IXMLNode);
     procedure Zeugnis2XML;
   public
     { Public-Deklarationen }
@@ -324,6 +324,136 @@ procedure TfrmErfassung.chkQuickPreviewClick(Sender: TObject);
 begin
   pnlQuickPreview.Visible := chkQuickPreview.Checked;
   Splitter2.Visible := chkQuickPreview.Checked;
+end;
+
+procedure TfrmErfassung.DeleteActivTabSheet(aPageControl: TPageControl);
+var
+  Idx: Integer;
+begin
+  for Idx := aPageControl.PageCount - 1 downto 0 do
+  begin
+    if aPageControl.Pages[Idx] is TFachTabSheet then
+      aPageControl.Pages[Idx].Free;
+  end;
+
+  pnlReligionPhilosophie.Visible := False;
+end;
+
+procedure TfrmErfassung.DoLoadSchueler;
+var
+//  Root: IXMLNode;
+  SFVersion: Integer;
+  EncriptFileName, TempFileName: TFileName;
+begin
+  TempFileName := SchuelerFileName;
+  if ExtractFileExt(SchuelerFileName) = '.xschueler' then
+  begin
+    EncriptFileName := GetTempFile;
+    Codec1.DecryptFile(EncriptFileName, SchuelerFileName);
+    TempFileName := EncriptFileName;
+  end;
+  if FileExists(TempFileName) then
+  begin
+    XMLSchueler.XML.Clear;
+    XMLSchueler.LoadFromFile(TempFileName);
+    Root := XMLSchueler.DocumentElement;
+
+    PersonalDatenNode := nil;
+    ZeugnisInhaltNode := nil;
+    ZeugnisInhaltGGLNode := nil;
+
+    SFVersion := 1;
+    if Root.HasAttribute('Version') then
+       SFVersion := StrToIntDef(VarToStr(Root.Attributes['Version']), 0);
+    if SFVersion > SchueleVersion then
+    begin
+      MessageDlg('Die Schülerdatei ist nicht lesbar. Sie wurde von einer neueren Version der Software erzeugt!'+#13#10+
+                 'Bitte führen Sie ein Update durch!', mtError, [mbOK], 0);
+      Abort;
+    end;
+
+    RecentList.CustomItemAdd(SchuelerFileName);
+    LoadDocumnetInfo(Root);
+
+    if Root.ChildNodes.Count > 0 then
+    begin
+      InXMLToTabSheet := True;
+
+      try
+        FBericht := False;
+        PersonalDatenNode := Root.ChildNodes.FindNode('PersonalDaten');
+        if Assigned(PersonalDatenNode) then
+        begin
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Nachname')) then
+            edNachname.Text := VarToStr(PersonalDatenNode.ChildValues['Nachname']);
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Vorname')) then
+            edVorname.Text := VarToStr(PersonalDatenNode.ChildValues['Vorname']);
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('KlasseZiffer')) then
+            edKlasse.Text := VarToStr(PersonalDatenNode.ChildValues['KlasseZiffer']);
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('KlasseBuchstabe')) then
+            cmbKlasse.ItemIndex := cmbKlasse.Items.IndexOf(VarToStr(PersonalDatenNode.ChildValues['KlasseBuchstabe']));
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Schuljahr')) then
+            if Length(VarToStr(PersonalDatenNode.ChildValues['Schuljahr'])) > 2 then
+              cmbSchuljahr.ItemIndex := cmbSchuljahr.Items.IndexOf(VarToStr(PersonalDatenNode.ChildValues['Schuljahr']))
+            else
+              cmbSchuljahr.ItemIndex := PersonalDatenNode.ChildValues['Schuljahr'];
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Halbjahr')) then
+            FHalbJahr := PersonalDatenNode.ChildValues['Halbjahr'];
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Konferenz')) then
+          begin
+            if StrToIntDef(PersonalDatenNode.ChildValues['Konferenz'], -1) = -1 then
+              dtKonferenzbeschluss.Date := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Konferenz'])
+            else
+              dtKonferenzbeschluss.Date := PersonalDatenNode.ChildValues['Konferenz'];
+          end;
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Ausstellungsdatum')) then
+          begin
+            if StrToIntDef(PersonalDatenNode.ChildValues['Ausstellungsdatum'], -1) = -1 then
+              dtAusstellungsdatum.Date := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Ausstellungsdatum'])
+            else
+              dtAusstellungsdatum.Date := PersonalDatenNode.ChildValues['Ausstellungsdatum'];
+          end;
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse2')) then
+            cmbVersaeumnisse.ItemIndex := cmbVersaeumnisse.Items.IndexOf(PersonalDatenNode.ChildValues['Versaeumnisse2'])
+          else
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse')) then
+          begin
+            if SFVersion = 1 then
+            begin
+              if PersonalDatenNode.ChildValues['Versaeumnisse'] > 0 then
+                cmbVersaeumnisse.ItemIndex := PersonalDatenNode.ChildValues['Versaeumnisse'] + 1
+              else
+                cmbVersaeumnisse.ItemIndex := 0;
+            end else
+              cmbVersaeumnisse.ItemIndex := PersonalDatenNode.ChildValues['Versaeumnisse'];
+          end;
+          lblFoerderschwerpunkt.Visible := Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt'));
+          edFoerderschwerpunkt.Visible  := Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt'));
+          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt')) then
+            edFoerderschwerpunkt.Text := VarToStr(PersonalDatenNode.ChildValues['Foerderschwerpunkt']);
+        end;
+
+        ZeugnisInhaltNode := Root.ChildNodes.FindNode('ZeugnisInhalt');
+        ZeugnisInhaltGGLNode := Root.ChildNodes.FindNode('ZeugnisInhaltGGL');
+        cxZeugnisControl.HideTabs := not (Assigned(ZeugnisInhaltNode) and Assigned(ZeugnisInhaltGGLNode));
+        cxZeugnisControl.ActivePage := cxTabSheet1;
+        if Assigned(ZeugnisInhaltNode) then
+        begin
+          if ZeugnisInhaltNode.HasAttribute('Bezeichnung') then
+            cxTabSheet1.Caption := ZeugnisInhaltNode.Attributes['Bezeichnung'];
+          XMLToTabSheet(pgZeugnis, ZeugnisInhaltNode);
+        end;
+        if Assigned(ZeugnisInhaltGGLNode) then
+        begin
+          if ZeugnisInhaltGGLNode.HasAttribute('Bezeichnung') then
+            cxTabSheet2.Caption := ZeugnisInhaltGGLNode.Attributes['Bezeichnung'];
+          XMLToTabSheet(pgZeugnisGGL, ZeugnisInhaltGGLNode);
+        end;
+      finally
+        InXMLToTabSheet := False;
+      end;
+    end;
+  end;
 end;
 
 function TfrmErfassung.CreateFachTabSheet(aPageControl: TPageControl; FachNode, FachGGLNode: IXMLNode): TFachTabSheet;
@@ -462,136 +592,6 @@ begin
     FBemerkung.mitAlignBlock.Action  := FormatRichEditAlignBlocksatz;
 
     FBemerkung.Show;
-  end;
-end;
-
-procedure TfrmErfassung.DeleteActivTabSheet(aPageControl: TPageControl);
-var
-  Idx: Integer;
-begin
-  for Idx := aPageControl.PageCount - 1 downto 0 do
-  begin
-    if aPageControl.Pages[Idx] is TFachTabSheet then
-      aPageControl.Pages[Idx].Free;
-  end;
-
-  pnlReligionPhilosophie.Visible := False;
-end;
-
-procedure TfrmErfassung.DoLoadSchueler;
-var
-//  Root: IXMLNode;
-  SFVersion: Integer;
-  EncriptFileName, TempFileName: TFileName;
-begin
-  TempFileName := SchuelerFileName;
-  if ExtractFileExt(SchuelerFileName) = '.xschueler' then
-  begin
-    EncriptFileName := GetTempFile;
-    Codec1.DecryptFile(EncriptFileName, SchuelerFileName);
-    TempFileName := EncriptFileName;
-  end;
-  if FileExists(TempFileName) then
-  begin
-    XMLSchueler.XML.Clear;
-    XMLSchueler.LoadFromFile(TempFileName);
-    Root := XMLSchueler.DocumentElement;
-
-    PersonalDatenNode := nil;
-    ZeugnisInhaltNode := nil;
-    ZeugnisInhaltGGLNode := nil;
-
-    SFVersion := 1;
-    if Root.HasAttribute('Version') then
-       SFVersion := StrToIntDef(VarToStr(Root.Attributes['Version']), 0);
-    if SFVersion > SchueleVersion then
-    begin
-      MessageDlg('Die Schülerdatei ist nicht lesbar. Sie wurde von einer neueren Version der Software erzeugt!'+#13#10+
-                 'Bitte führen Sie ein Update durch!', mtError, [mbOK], 0);
-      Abort;
-    end;
-
-    RecentList.CustomItemAdd(SchuelerFileName);
-    LoadDocumnetInfo(Root);
-
-    if Root.ChildNodes.Count > 0 then
-    begin
-      InXMLToTabSheet := True;
-
-      try
-        FBericht := False;
-        PersonalDatenNode := Root.ChildNodes.FindNode('PersonalDaten');
-        if Assigned(PersonalDatenNode) then
-        begin
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Nachname')) then
-            edNachname.Text := VarToStr(PersonalDatenNode.ChildValues['Nachname']);
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Vorname')) then
-            edVorname.Text := VarToStr(PersonalDatenNode.ChildValues['Vorname']);
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('KlasseZiffer')) then
-            edKlasse.Text := VarToStr(PersonalDatenNode.ChildValues['KlasseZiffer']);
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('KlasseBuchstabe')) then
-            cmbKlasse.ItemIndex := cmbKlasse.Items.IndexOf(VarToStr(PersonalDatenNode.ChildValues['KlasseBuchstabe']));
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Schuljahr')) then
-            if Length(VarToStr(PersonalDatenNode.ChildValues['Schuljahr'])) > 2 then
-              cmbSchuljahr.ItemIndex := cmbSchuljahr.Items.IndexOf(VarToStr(PersonalDatenNode.ChildValues['Schuljahr']))
-            else
-              cmbSchuljahr.ItemIndex := PersonalDatenNode.ChildValues['Schuljahr'];
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Halbjahr')) then
-            FHalbJahr := PersonalDatenNode.ChildValues['Halbjahr'];
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Konferenz')) then
-          begin
-            if StrToIntDef(PersonalDatenNode.ChildValues['Konferenz'], -1) = -1 then
-              dtKonferenzbeschluss.Date := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Konferenz'])
-            else
-              dtKonferenzbeschluss.Date := PersonalDatenNode.ChildValues['Konferenz'];
-          end;
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Ausstellungsdatum')) then
-          begin
-            if StrToIntDef(PersonalDatenNode.ChildValues['Ausstellungsdatum'], -1) = -1 then
-              dtAusstellungsdatum.Date := XMLTimeToDateTime(PersonalDatenNode.ChildValues['Ausstellungsdatum'])
-            else
-              dtAusstellungsdatum.Date := PersonalDatenNode.ChildValues['Ausstellungsdatum'];
-          end;
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse2')) then
-            cmbVersaeumnisse.ItemIndex := cmbVersaeumnisse.Items.IndexOf(PersonalDatenNode.ChildValues['Versaeumnisse2'])
-          else
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Versaeumnisse')) then
-          begin
-            if SFVersion = 1 then
-            begin
-              if PersonalDatenNode.ChildValues['Versaeumnisse'] > 0 then
-                cmbVersaeumnisse.ItemIndex := PersonalDatenNode.ChildValues['Versaeumnisse'] + 1
-              else
-                cmbVersaeumnisse.ItemIndex := 0;
-            end else
-              cmbVersaeumnisse.ItemIndex := PersonalDatenNode.ChildValues['Versaeumnisse'];
-          end;
-          lblFoerderschwerpunkt.Visible := Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt'));
-          edFoerderschwerpunkt.Visible  := Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt'));
-          if Assigned(PersonalDatenNode.ChildNodes.FindNode('Foerderschwerpunkt')) then
-            edFoerderschwerpunkt.Text := VarToStr(PersonalDatenNode.ChildValues['Foerderschwerpunkt']);
-        end;
-
-        ZeugnisInhaltNode := Root.ChildNodes.FindNode('ZeugnisInhalt');
-        ZeugnisInhaltGGLNode := Root.ChildNodes.FindNode('ZeugnisInhaltGGL');
-        cxZeugnisControl.HideTabs := not (Assigned(ZeugnisInhaltNode) and Assigned(ZeugnisInhaltGGLNode));
-        cxZeugnisControl.ActivePage := cxTabSheet1;
-        if Assigned(ZeugnisInhaltNode) then
-        begin
-          if ZeugnisInhaltNode.HasAttribute('Bezeichnung') then
-            cxTabSheet1.Caption := ZeugnisInhaltNode.Attributes['Bezeichnung'];
-          XMLToTabSheet(pgZeugnis, ZeugnisInhaltNode);
-        end;
-        if Assigned(ZeugnisInhaltGGLNode) then
-        begin
-          if ZeugnisInhaltGGLNode.HasAttribute('Bezeichnung') then
-            cxTabSheet2.Caption := ZeugnisInhaltGGLNode.Attributes['Bezeichnung'];
-          XMLToTabSheet(pgZeugnisGGL, ZeugnisInhaltGGLNode);
-        end;
-      finally
-        InXMLToTabSheet := False;
-      end;
-    end;
   end;
 end;
 
@@ -831,14 +831,14 @@ begin
   end;
 end;
 
-procedure TfrmErfassung.LoadDocumnetInfo(Root: IXMLNode);
+procedure TfrmErfassung.LoadDocumnetInfo(aRoot: IXMLNode);
 begin
-  if Assigned(Root) then
+  if Assigned(aRoot) then
   begin
-    FBericht := s2b(VarToStr(Root.Attributes['Bericht']));
-    FGesprGrdl := s2b(VarToStr(Root.Attributes['GesprGrdl']));
-    lblFoerderschwerpunkt.Visible := s2b(VarToStr(Root.Attributes['Foerderschwerpunkt']));
-    edFoerderschwerpunkt.Visible := lblFoerderschwerpunkt.Visible;
+    FBericht                      := s2b(VarToStr(aRoot.Attributes['Bericht']));
+    FGesprGrdl                    := s2b(VarToStr(aRoot.Attributes['GesprGrdl']));
+    lblFoerderschwerpunkt.Visible := s2b(VarToStr(aRoot.Attributes['Foerderschwerpunkt']));
+    edFoerderschwerpunkt.Visible  := s2b(VarToStr(aRoot.Attributes['Foerderschwerpunkt']));
 //    mitTextbaustein.Visible := lblFoerderschwerpunkt.Visible;
   end;
 end;

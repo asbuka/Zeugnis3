@@ -62,10 +62,10 @@ type
     property OrderNr: Integer read FOrderNr write FOrderNr;
     property Wert: Integer read FWert write SetWert;
     property FachPunktText: TCaption read GetFachPunktText write SetFachPunktText;
-    property FachPunktColor: TColor read GetFachPunktColor write SetFachPunktColor;
     property OnFachPunktChange: TNotifyEvent read FOnFachPunktChange write FOnFachPunktChange;
     property OnFachPunktDblClick: TNotifyEvent read FOnFachPunktDblClick write FOnFachPunktDblClick;
     property OnPunktFachChange: TPunktFachChangeEvent read FOnPunktFachChange write FOnPunktFachChange;
+    property FachPunktColor: TColor read GetFachPunktColor write SetFachPunktColor;
     procedure InitFromXML(aXMLNode: IXMLNode);
   end;
 

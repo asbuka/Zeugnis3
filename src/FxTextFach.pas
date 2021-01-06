@@ -54,7 +54,6 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Shape1: TShape;
     procedure FormCreate(Sender: TObject);
     procedure cmbSchriftgradChange(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -80,12 +79,12 @@ type
     FTextFachMap: TTextFachMappe;
     function GetSchriftgrad: Byte;
     procedure SetSchriftgrad(const Value: Byte);
-    procedure BuildPopupMenu(PHNr: IXMLNode; Nr: Word);
+    procedure BuildPopupMenu(PHNr: IXMLNode; TortenNr: Word);
 //    function FindMarkWord2(const Pos: Integer; var Number: Word; var MarkWordSart, MarkWordLen: Cardinal): Boolean;
 //    function FindMarkWord3(const Pos: Integer; var Number: Word): Boolean;
 //    function FindMarkWord4(const Pos: Cardinal; var Number: Word; var MarkWordStart, MarkWordLen: Cardinal): Boolean;
     procedure mitMenuItemClick(Sender: TObject);
-    function FindTortenValue(TortenNr: Word): IXMLNode;
+    function FindTortenValue(const TortenNr: Word): IXMLNode;
 //    procedure MarkierenPlatzHalter(PHNode: IXMLNode);
     procedure MakeTextFachMap;
 //    procedure SetRichEditAlign(const Value: TRichEditAlign);
@@ -116,16 +115,16 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmTextFach.BuildPopupMenu(PHNr: IXMLNode; Nr: Word);
+procedure TfrmTextFach.BuildPopupMenu(PHNr: IXMLNode; TortenNr: Word);
 var
   Idx: Integer;
   MenuItem: TBMenuItem;
 begin
   PHTortenMenuClear;
 
-  if Assigned(PHNr) and (Nr > 0) then
+  if Assigned(PHNr) and (TortenNr > 0) then
   begin
-    PHTortenMenu.Tag := Nr;
+    PHTortenMenu.Tag := TortenNr;
     if PHNr.HasChildNodes then
     begin
       for Idx := 0 to PHNr.ChildNodes.Count - 1 do
@@ -305,7 +304,7 @@ end;
 //  Label7.Caption := 'Mark.Wort Len: ' + IntToStr(MarkWordLen);
 //end;
 
-function TfrmTextFach.FindTortenValue(TortenNr: Word): IXMLNode;
+function TfrmTextFach.FindTortenValue(const TortenNr: Word): IXMLNode;
 var
   Idx: Integer;
   PHName: string;
@@ -316,7 +315,7 @@ begin
     for Idx := 0 to FPlatzHalter.ChildNodes.Count - 1 do
     begin
       PHName := VarToStr(FPlatzHalter.ChildNodes.Get(Idx).Attributes['NAME']);
-      if AnsiSameText('TORTE' + FormatFloat('00', TortenNr), PHName) then
+      if SameText('TORTE' + FormatFloat('00', TortenNr), PHName) then
       begin
         Result := FPlatzHalter.ChildNodes.Get(Idx);
         Break;
@@ -392,7 +391,7 @@ begin
       reTextFach.Lines.EndUpdate;
       WorkStream.Free;
     end;
-    FTextFachNode.ChildNodes.Nodes['RTFText'].Attributes['Schriftgrad'] := GetSchriftgrad;
+
     FTextFachNode.ChildValues['Schriftgrad'] := GetSchriftgrad;
   end;
 end;
@@ -413,7 +412,7 @@ begin
   begin
     for Idx := 0 to FTextFachGGLNode.ChildNodes.Count - 1 do
     begin
-      if AnsiSameText(FTextFachGGLNode.ChildNodes[Idx].NodeName, 'PUNKT') then
+      if SameText(FTextFachGGLNode.ChildNodes[Idx].NodeName, 'PUNKT') then
       begin
         if StrToInt(VarToStr(FTextFachGGLNode.ChildNodes[Idx].ChildNodes.FindNode('SortNr').NodeValue)) = PunktNr then
         begin

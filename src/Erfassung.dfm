@@ -510,6 +510,10 @@ object frmErfassung: TfrmErfassung
       object cxTabSheet1: TcxTabSheet
         Caption = 'cxTabSheet1'
         ImageIndex = 0
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pgZeugnis: TPageControl
           Left = 0
           Top = 0
@@ -522,6 +526,10 @@ object frmErfassung: TfrmErfassung
       object cxTabSheet2: TcxTabSheet
         Caption = 'cxTabSheet2'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pgZeugnisGGL: TPageControl
           Left = 0
           Top = 0
