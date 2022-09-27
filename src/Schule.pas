@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, Winapi.ShlObj, Winapi.WinInet, Vcl.Forms,
-  System.IniFiles, System.Win.Registry, System.SysUtils, Vcl.ExtActns, Xml.XMLIntf,
+  System.IniFiles, System.Win.Registry, System.SysUtils, Vcl.ExtActns, System.SyncObjs, Xml.XMLIntf,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
   System.Variants, System.IOUtils;
 
@@ -29,6 +29,13 @@ const
 type
   TZeugnistModus = (fpLoad, fpNormal, fpEdit);
 
+{ TRichEditAlignBlocksatz }
+  TRichEditAlignBlocksatz = class(TRichEditAction)
+  public
+    procedure ExecuteTarget(Target: TObject); override;
+    procedure UpdateTarget(Target: TObject); override;
+  end;
+
   function DeleteTrailingBlanks(const Str: String): String;
   function GetFileVersion(Datei: string): string;
   function CompareFileVersion(const FileVersion1, FileVersion2: String): Integer;
@@ -37,11 +44,12 @@ type
   function CheckLexicon(const Input: string): string;
   function GetUniqueComponentName(AOwner: TComponent; const CompName: string): string;
   function GetTempFile(const Extension: string = ''): string;
+  function IsXML(sText: string): Boolean;
   function IsRTF(sText: string): Boolean;
   function RTF2PlainText(sRTF: String): string;
   function RTFOhneEffekt(sRTF: String; sFachName: string = ''): string;
   function TrimRTF(sRTF: String): string;
-  function SetRTFFontSize(sRTF: String; FontSis: Integer): string;
+  function SetRTFFontSize(sRTF: String; FontSize: Integer): string;
   function FindAtributeNode(Input: IXMLNode; const AttributesName, AttributesValue: WideString): IXMLNode;
   function HomeVerzeichnis(Form: TForm): string;
   function InstallExt(Extension, ExtDescription, FileDescription,
@@ -65,10 +73,11 @@ type
   function GetDefaultPrinter: string;
   procedure SetDefaultPrinter1(NewDefPrinter: string);
   procedure SetDefaultPrinter2(PrinterName: string);
-  procedure Delay(dwMilliseconds: Longint);
+  procedure Delay(dwMilliseconds: Cardinal);
 
 var
   ApplicationPath: string;
+  CS: TCriticalSection;
   INI_Einstellungen: TIniFile;
   REG_Einstellungen: TRegistryIniFile;
 
@@ -97,31 +106,33 @@ end;
 
 function RTF2PlainText(sRTF: String): string;
 var
- aRE: TRichEdit;
- aStream: TStringStream;
+  aRE: TRichEdit;
+  aStream: TStringStream;
 begin
-   aRE := TRichEdit.Create(nil);
-   //RTF Bug: Beim Laden des Texttes über
-   //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
-   // Deswegen hier dieser Wokarround
-   sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
-   aStream := TStringStream.Create(sRTF);
-   try
-      aRE.Visible := False;
-      aRE.ParentWindow := Application.Handle;
-      if aRE.ParentWindow = 0 then
-        aRE.ParentWindow := GetDesktopWindow;
-      aRE.PlainText := False;
-      aRE.Lines.LoadFromStream(aStream);
-      aRE.PlainText := True;
-      aStream.Position := soFromBeginning;
-      aStream.Size := 0;
-      aRE.Lines.SaveToStream(aStream);
-      Result := aStream.DataString;
-   finally
-     aRE.Free;
-     aStream.Free;
-   end;
+  aRE := TRichEdit.Create(nil);
+  //RTF Bug: Beim Laden des Texttes über
+  //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
+  // Deswegen hier dieser Wokarround
+//  sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+  aStream := TStringStream.Create(sRTF);
+  try
+    CS.Enter;
+    aRE.Visible := False;
+    aRE.ParentWindow := Application.Handle;
+    if aRE.ParentWindow = 0 then
+      aRE.ParentWindow := GetDesktopWindow;
+    aRE.PlainText := False;
+    aRE.Lines.LoadFromStream(aStream);
+    aRE.PlainText := True;
+    aStream.Position := soFromBeginning;
+    aStream.Size := 0;
+    aRE.Lines.SaveToStream(aStream);
+    Result := aStream.DataString;
+  finally
+    aRE.Free;
+    aStream.Free;
+    CS.Leave;
+  end;
 end;
 
 function RTFOhneEffekt(sRTF: String; sFachName: string): string;
@@ -175,16 +186,17 @@ end;
 
 function TrimRTF(sRTF: String): string;
 var
- aRE: TRichEdit;
- aStream: TStringStream;
+  aRE: TRichEdit;
+  aStream: TStringStream;
 begin
   aRE := TRichEdit.Create(nil);
   //RTF Bug: Beim Laden des Texttes über
   //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
   // Deswegen hier dieser Wokarround
-  sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+//  sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
   aStream := TStringStream.Create(sRTF);
   try
+    CS.Enter;
     aRE.Visible := False;
     aRE.ParentWindow := Application.Handle;
     if aRE.ParentWindow = 0 then
@@ -215,36 +227,39 @@ begin
   finally
     aRE.Free;
     aStream.Free;
+    CS.Leave;
   end;
 end;
 
-function SetRTFFontSize(sRTF: String; FontSis: Integer): string;
+function SetRTFFontSize(sRTF: String; FontSize: Integer): string;
 var
- aRE: TRichEdit;
- aStream: TStringStream;
+  aRE: TRichEdit;
+  aStream: TStringStream;
 begin
-   aRE := TRichEdit.Create(nil);
-   //RTF Bug: Beim Laden des Texttes über
-   //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
-   // Deswegen hier dieser Wokarround
-   sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
-   aStream := TStringStream.Create(sRTF);
-   try
-      aRE.Visible := False;
-      aRE.ParentWindow := Application.Handle;
-      if aRE.ParentWindow = 0 then
-        aRE.ParentWindow := GetDesktopWindow;
-      aRE.PlainText := False;
-      aRE.Lines.LoadFromStream(aStream);
-      aRE.SelectAll;
-      aRE.SelAttributes.Size := Round(FontSis * A3_Fach);
-      aStream.Position := soFromBeginning;
-      aStream.Size := 0;
-      aRE.Lines.SaveToStream(aStream);
-      Result := aStream.DataString;
-   finally
-     aRE.Free;
-     aStream.Free;
+  aRE := TRichEdit.Create(nil);
+  //RTF Bug: Beim Laden des Texttes über
+  //LoadFromStream werden die ersten Zeichen nach dem Tab verschluckt.
+  // Deswegen hier dieser Wokarround
+//  sRTF := StringReplace(sRTF,'\tab','\tab ',[rfReplaceAll]);
+  aStream := TStringStream.Create(sRTF);
+  try
+    CS.Enter;
+    aRE.Visible := False;
+    aRE.ParentWindow := Application.Handle;
+    if aRE.ParentWindow = 0 then
+      aRE.ParentWindow := GetDesktopWindow;
+    aRE.PlainText := False;
+    aRE.Lines.LoadFromStream(aStream);
+    aRE.SelectAll;
+    aRE.SelAttributes.Size := Round(FontSize * A3_Fach);
+    aStream.Position := soFromBeginning;
+    aStream.Size := 0;
+    aRE.Lines.SaveToStream(aStream);
+    Result := aStream.DataString;
+  finally
+    aRE.Free;
+    aStream.Free;
+    CS.Leave;
    end;
 end;
 
@@ -345,7 +360,7 @@ begin
   try
     INI_Einstellungen.ReadSectionValues('LEXICON', FLexicon);
     for Idx := 0 to FLexicon.Count - 1 do
-      Result := StringReplace(Input, Trim(FLexicon.Names[Idx]), Trim(FLexicon.ValueFromIndex[Idx]), [rfReplaceAll]);
+      Result := StringReplace(Result, Trim(FLexicon.Names[Idx]), Trim(FLexicon.ValueFromIndex[Idx]), [rfReplaceAll]);
   finally
     FLexicon.Free;
   end;
@@ -368,6 +383,12 @@ begin
   Result := TPath.GetTempFileName;
   if Extension <> '' then
     ChangeFileExt(Result, Extension);
+end;
+
+function IsXML(sText: string): Boolean;
+begin
+  sText := Trim(sText);
+  Result := Copy(sText, 1, 5) = '<?xml';
 end;
 
 function IsRTF(sText: string): Boolean;
@@ -563,7 +584,7 @@ begin
                  NIL, dwErrorCode, GetSystemDefaultLangID, @pErrorMsgBuffer, 0, NIL );
    try
       strError := StrPas(pChar(pErrorMsgBuffer));
-      strError := '(Code: '+IntToStr(dwErrorCode) +' )'+ strError;
+      strError := '(Code: ' + IntToStr(dwErrorCode) +' )'+ strError;
    finally
       LocalFree(LongInt(pErrorMsgBuffer));
    end;
@@ -580,22 +601,22 @@ begin
    pDevMode    := NIL  ;
    if not OpenPrinter(strPrinter, hPrt) then
    begin
-      MessageDlg(Format(E_OPEN_PRINTER, [GetWinErrorMsgStr(GetLastError)]), mtError, [mbOk] ,0);
-      Exit;
+     MessageDlg(Format(E_OPEN_PRINTER, [GetWinErrorMsgStr(GetLastError)]), mtError, [mbOk] ,0);
+     Exit;
    end;
 
    try
-      lnSizeNeeded := DocumentProperties(0, hPrt, NIL,  pDevmode^, pDevmode^, 0);
-      pDevMode := GlobalAllocPtr(HeapAllocFlags or GMEM_ZEROINIT, lnSizeNeeded);
-      lnDocPropRes:= DocumentProperties(0, hPrt, NIL,  pDevmode^, pDevmode^, DM_OUT_BUFFER);
-      Result := (lnDocPropRes = IDOK);
-      if(Not Result) then
-      begin
-         GlobalFreePtr(pDevmode);
-         pDevMode := NIL
-      end;
+     lnSizeNeeded := DocumentProperties(0, hPrt, NIL,  pDevmode^, pDevmode^, 0);
+     pDevMode := GlobalAllocPtr(HeapAllocFlags or GMEM_ZEROINIT, lnSizeNeeded);
+     lnDocPropRes:= DocumentProperties(0, hPrt, NIL,  pDevmode^, pDevmode^, DM_OUT_BUFFER);
+     Result := (lnDocPropRes = IDOK);
+     if not Result then
+     begin
+       GlobalFreePtr(pDevmode);
+       pDevMode := NIL
+     end;
    finally
-      ClosePrinter(hPrt);
+     ClosePrinter(hPrt);
    end;
 end;
 
@@ -773,6 +794,46 @@ begin
   end;
 end;
 
+{ TRichEditAlignBlocksatz }
+
+procedure TRichEditAlignBlocksatz.ExecuteTarget(Target: TObject);
+var
+  Paragraph: TParaFormat2;
+begin
+//  inherited;
+
+  if Target is TCustomRichEdit then
+  begin
+    ZeroMemory(@Paragraph, SizeOf(TParaFormat2));
+    Paragraph.cbSize := SizeOf(TParaFormat2);
+    Paragraph.dwMask := PFM_ALIGNMENT;
+    Paragraph.wAlignment := PFA_JUSTIFY;
+    SendMessage(TCustomRichEdit(Target).Handle, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
+    SendMessage(TCustomRichEdit(Target).Handle, EM_SETPARAFORMAT, 0, Integer(@Paragraph));
+
+    Checked := True;
+  end;
+end;
+
+procedure TRichEditAlignBlocksatz.UpdateTarget(Target: TObject);
+var
+  Paragraph: TParaFormat2;
+begin
+//  inherited;
+
+  Enabled := Target is TCustomRichEdit;
+
+  if Enabled then
+  begin
+    ZeroMemory(@Paragraph, SizeOf(TParaFormat2));
+    Paragraph.cbSize := SizeOf(TParaFormat2);
+    if TCustomRichEdit(Target).HandleAllocated then
+      SendGetStructMessage(TCustomRichEdit(Target).Handle, EM_GETPARAFORMAT, 0, Paragraph, True);
+
+    Checked := Enabled and (Paragraph.wAlignment = PFA_JUSTIFY);
+  end;
+end;
+
 function OpenPrinter(const PrinterName: string; var hPrt: THandle): Boolean;
 var
   aPrtDef: TPrinterDefaults;
@@ -823,7 +884,7 @@ begin
       if Printer.Printers.ValueFromIndex[I] = PrinterName then
       begin
         aprinter.PrinterIndex := i;
-        aPrinter.getprinter(device, driver, port, HdeviceMode);
+        aPrinter.GetPrinter(Device, Driver, Port, HdeviceMode);
         StrCat(Device, ',');
         StrCat(Device, Driver);
         StrCat(Device, Port);
@@ -916,7 +977,7 @@ begin
    end;
 end;
 
-procedure Delay(dwMilliseconds: Longint);
+procedure Delay(dwMilliseconds: Cardinal);
 var
   iStart, iStop: Cardinal;
 begin
@@ -930,6 +991,8 @@ end;
 
 initialization
   ApplicationPath := IncludeTrailingBackslash(ExtractFilePath(Application.ExeName));
+  CS := TCriticalSection.Create;
+
   INI_Einstellungen := TIniFile.Create(ApplicationPath + 'zeugnis.ini');
   REG_Einstellungen := TRegistryIniFile.Create(RegGSHoisbuettel);
 
@@ -948,4 +1011,5 @@ finalization
   GS_Hoisbuettel_FontLabel.Free;
   GS_Hoisbuettel_FontEdit.Free;
 
+  CS.Free;
 end.
